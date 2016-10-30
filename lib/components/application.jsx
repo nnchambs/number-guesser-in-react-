@@ -21,6 +21,10 @@ export default class Application extends Component {
     this.setState({ userNumber: userGuess });
   }
 
+  checkGuess() {
+    
+  }
+
 
   render() {
 
