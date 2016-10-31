@@ -26,9 +26,10 @@ export default class Application extends Component {
   }
 
   clearInput() {
- let input = document.getElementById('numberInput');
-  input.value = "";
+    let input = document.getElementById('numberInput');
+    input.value = "";
   }
+
 
 
   render() {
@@ -45,14 +46,18 @@ export default class Application extends Component {
       }
     }
 
+
+
+
+
     return(
       <div>
-        <input id="numberInput" placeholder="Guess a number"></input>
-        <button onClick={this.setUserGuess}>Submit</button>
+        <input id="numberInput" placeholder="Guess a number" type='number' min='1' max='100'></input>
+        <button onClick={this.setUserGuess} disabled>Submit</button>
         <div className="numberDisplay">{ this.state.userNumber }</div>
         <div className="messageDisplay"></div>
         <div>{ errorMessage }</div>
-        <button className='clearButton' onClick={this.clearInput}>Clear</button>
+        <button className='clearButton' onClick={this.clearInput} disabled>Clear</button>
       </div>
     )
   }
