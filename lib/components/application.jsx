@@ -22,19 +22,37 @@ export default class Application extends Component {
   }
 
   checkGuess() {
-    
+
+  }
+
+  clearInput() {
+ let input = document.getElementById('numberInput');
+  input.value = "";
   }
 
 
   render() {
+    let errorMessage;
+    if (this.state.userNumber !== "") {
+      if (this.state.userNumber !== "" && this.state.randomNumber === this.state.userNumber) {
+        errorMessage = "Yeaaaaahhhhhh boiiiiiiii!!!!!!!";
+      } else if (this.state.randomNumber > this.state.userNumber) {
+        errorMessage = "Too low, SON!";
+      } else if (this.state.randomNumber < this.state.userNumber) {
+        errorMessage = "Too damn high!!";
+      } else {
+        errorMessage = '';
+      }
+    }
 
     return(
       <div>
-        <div></div>
         <input id="numberInput" placeholder="Guess a number"></input>
         <button onClick={this.setUserGuess}>Submit</button>
         <div className="numberDisplay">{ this.state.userNumber }</div>
         <div className="messageDisplay"></div>
+        <div>{ errorMessage }</div>
+        <button className='clearButton' onClick={this.clearInput}>Clear</button>
       </div>
     )
   }
