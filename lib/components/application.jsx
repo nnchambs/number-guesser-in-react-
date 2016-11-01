@@ -3,10 +3,12 @@ import React, { Component } from 'react';
 export default class Application extends Component {
   constructor() {
     super();
+    this.randomNumberGenerator = this.randomNumberGenerator.bind(this);
     this.setUserGuess = this.setUserGuess.bind(this);
+    this.resetGame = this.resetGame.bind(this);
     this.state = {
-      userNumber: '',
-      randomNumber: ''
+      userNumber: null,
+      randomNumber: null
     };
   }
   componentDidMount() {
@@ -21,8 +23,12 @@ export default class Application extends Component {
     this.setState({ userNumber: userGuess });
   }
 
-  checkGuess() {
-
+  resetGame() {
+    let resetNumber = null;
+    this.setState({ userNumber: resetNumber
+    });
+    this.clearInput();
+    this.randomNumberGenerator();
   }
 
   clearInput() {
@@ -56,10 +62,12 @@ export default class Application extends Component {
         errorMessage = "Too low, SON!";
       } else if (this.state.randomNumber < userNumber) {
         errorMessage = "Too damn high!!";
-      } else if (Number.isNaN(userNumber)) {
-        errorMessage = "Numbers, WHAT ARE THEY?!";
+      } else if (userNumber = null) {
+        errorMessage = ''
       }
-      else {
+      else if (Number.isNaN(userNumber)) {
+        errorMessage = "Numbers, WHAT ARE THEY?!";
+      } else {
         errorMessage = '';
       }
     }
@@ -75,6 +83,7 @@ export default class Application extends Component {
         <div id="messageDisplay"></div>
         <div>{ errorMessage }</div>
         <button id='clearButton' onClick={this.clearInput}>Clear</button>
+        <button id="resetButton" onClick={this.resetGame}>Reset</button>
       </div>
     )
   }
