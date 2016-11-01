@@ -30,18 +30,36 @@ export default class Application extends Component {
     input.value = "";
   }
 
+  toggleDisable() {
+    let submitButton = document.getElementById('submitButton');
+    let input = document.getElementById('numberInput');
+    let clearButton = document.getElementById('clearButton');
+    if (input.value) {
+      submitButton.disabled = false;
+      clearButton.disabled = false;
+    } else {
+      submitButton.disabled = true;
+      clearButton.disabled = true;
+    }
+
+
+  }
 
 
   render() {
     let errorMessage;
-    if (this.state.userNumber !== "") {
-      if (this.state.userNumber !== "" && this.state.randomNumber === this.state.userNumber) {
+    let userNumber = parseInt(this.state.userNumber);
+    if (userNumber !== "") {
+      if (userNumber !== "" && this.state.randomNumber === userNumber) {
         errorMessage = "Yeaaaaahhhhhh boiiiiiiii!!!!!!!";
-      } else if (this.state.randomNumber > this.state.userNumber) {
+      } else if (this.state.randomNumber > userNumber) {
         errorMessage = "Too low, SON!";
-      } else if (this.state.randomNumber < this.state.userNumber) {
+      } else if (this.state.randomNumber < userNumber) {
         errorMessage = "Too damn high!!";
-      } else {
+      } else if (Number.isNaN(userNumber)) {
+        errorMessage = "Numbers, WHAT ARE THEY?!";
+      }
+      else {
         errorMessage = '';
       }
     }
@@ -49,15 +67,14 @@ export default class Application extends Component {
 
 
 
-
     return(
       <div>
-        <input id="numberInput" placeholder="Guess a number" type='number' min='1' max='100'></input>
-        <button onClick={this.setUserGuess} disabled>Submit</button>
+        <input  id="numberInput" placeholder="Guess a number" min='1' max='100' onLoad={this.toggleDisable} onChange={this.toggleDisable}></input>
+        <button id="submitButton" onClick={this.setUserGuess}> Submit</button>
         <div className="numberDisplay">{ this.state.userNumber }</div>
-        <div className="messageDisplay"></div>
+        <div id="messageDisplay"></div>
         <div>{ errorMessage }</div>
-        <button className='clearButton' onClick={this.clearInput} disabled>Clear</button>
+        <button id='clearButton' onClick={this.clearInput}>Clear</button>
       </div>
     )
   }
