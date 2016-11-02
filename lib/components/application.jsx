@@ -42,12 +42,15 @@ export default class Application extends Component {
     let submitButton = document.getElementById('submitButton');
     let input = document.getElementById('numberInput');
     let clearButton = document.getElementById('clearButton');
+    let resetButton = document.getElementById('resetButton');
     if (input.value) {
       submitButton.disabled = false;
       clearButton.disabled = false;
+      resetButton.disabled = false
     } else {
       submitButton.disabled = true;
       clearButton.disabled = true;
+      resetButton.disabled = true;
     }
   }
 

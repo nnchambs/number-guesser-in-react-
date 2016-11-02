@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 
 class ErrorMessage extends React.Component {
-  // componentWillReceiveProps(newProps){
-  //
-  // }
+
   render() {
     let errorMessage;
     let userNumber = this.props.userGuess;
     let randomNumber = this.props.randomNumber;
     if (userNumber !== null) {
+      userNumber = parseInt(userNumber);
       if (randomNumber === userNumber) {
         errorMessage = "Yeaaaaahhhhhh boiiiiiiii!!!!!!!";
+      } else if (userNumber < 0 || userNumber > 100) {
+        errorMessage = "There are boundaries and limitations here. Please obey them.";
       } else if (randomNumber > userNumber) {
         errorMessage = "Too low, SON!";
       } else if (randomNumber < userNumber) {
