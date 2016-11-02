@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 class ErrorMessage extends React.Component {
-  componentWillReceiveProps(newProps){
-
-  }
+  // componentWillReceiveProps(newProps){
+  //
+  // }
   render() {
       let errorMessage;
       let userNumber = this.props.userGuess;

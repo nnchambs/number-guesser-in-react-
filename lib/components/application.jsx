@@ -25,8 +25,9 @@ export default class Application extends Component {
   }
 
   resetGame() {
+    debugger;
     let resetNumber = null;
-    this.setState({ userNumber: resetNumber
+    this.setState({ userNumber: resetNumber, randomNumber: this.randomNumberGenerator()
     });
     this.clearInput();
     this.randomNumberGenerator();
