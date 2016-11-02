@@ -8185,15 +8185,13 @@
 
 	var _reactDom = __webpack_require__(331);
 
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var _application = __webpack_require__(469);
 
-	var _Application = __webpack_require__(469);
-
-	var _Application2 = _interopRequireDefault(_Application);
+	var _application2 = _interopRequireDefault(_application);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement(_Application2.default, null), document.getElementById('react-root'));
+	(0, _reactDom.render)(_react2.default.createElement(_application2.default, null), document.getElementById('react-root'));
 
 /***/ },
 /* 299 */
@@ -29392,6 +29390,14 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _ErrorMessage = __webpack_require__(470);
+
+	var _ErrorMessage2 = _interopRequireDefault(_ErrorMessage);
+
+	var _Buttons = __webpack_require__(471);
+
+	var _Buttons2 = _interopRequireDefault(_Buttons);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29406,16 +29412,83 @@
 	  function Application() {
 	    _classCallCheck(this, Application);
 
-	    return _possibleConstructorReturn(this, (Application.__proto__ || Object.getPrototypeOf(Application)).call(this));
+	    var _this = _possibleConstructorReturn(this, (Application.__proto__ || Object.getPrototypeOf(Application)).call(this));
+
+	    _this.randomNumberGenerator = _this.randomNumberGenerator.bind(_this);
+	    _this.setUserGuess = _this.setUserGuess.bind(_this);
+	    _this.resetGame = _this.resetGame.bind(_this);
+	    _this.state = {
+	      userNumber: null,
+	      randomNumber: _this.randomNumberGenerator()
+	    };
+	    return _this;
 	  }
 
 	  _createClass(Application, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.toggleDisable();
+	    }
+	  }, {
+	    key: 'randomNumberGenerator',
+	    value: function randomNumberGenerator() {
+	      var randomNumber = Math.floor(Math.random() * 100) + 1;
+	      return randomNumber;
+	    }
+	  }, {
+	    key: 'setUserGuess',
+	    value: function setUserGuess(e) {
+	      var userGuess = document.getElementById('numberInput').value;
+	      this.setState({ userNumber: userGuess });
+	    }
+	  }, {
+	    key: 'resetGame',
+	    value: function resetGame() {
+	      var resetNumber = null;
+	      this.setState({ userNumber: resetNumber, randomNumber: this.randomNumberGenerator()
+	      });
+	      this.clearInput();
+	      this.randomNumberGenerator();
+	    }
+	  }, {
+	    key: 'clearInput',
+	    value: function clearInput() {
+	      var input = document.getElementById('numberInput');
+	      input.value = "";
+	    }
+	  }, {
+	    key: 'toggleDisable',
+	    value: function toggleDisable() {
+	      var submitButton = document.getElementById('submitButton');
+	      var input = document.getElementById('numberInput');
+	      var clearButton = document.getElementById('clearButton');
+	      var resetButton = document.getElementById('resetButton');
+	      if (input.value) {
+	        submitButton.disabled = false;
+	        clearButton.disabled = false;
+	        resetButton.disabled = false;
+	      } else {
+	        submitButton.disabled = true;
+	        clearButton.disabled = true;
+	        resetButton.disabled = true;
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'Hello'
+	        _react2.default.createElement('input', { id: 'numberInput', placeholder: 'Guess a number', min: '1', max: '100', onLoad: this.toggleDisable, onKeyUp: this.toggleDisable }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'numberDisplay' },
+	          this.state.userNumber
+	        ),
+	        _react2.default.createElement('div', { id: 'messageDisplay' }),
+	        _react2.default.createElement(_ErrorMessage2.default, { userGuess: this.state.userNumber, randomNumber: this.state.randomNumber }),
+	        _react2.default.createElement(_Buttons2.default, { clearInput: this.clearInput, resetGame: this.resetGame, setUserGuess: this.setUserGuess })
 	      );
 	    }
 	  }]);
@@ -29424,6 +29497,131 @@
 	}(_react.Component);
 
 	exports.default = Application;
+
+/***/ },
+/* 470 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(299);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ErrorMessage = function (_React$Component) {
+	  _inherits(ErrorMessage, _React$Component);
+
+	  function ErrorMessage() {
+	    _classCallCheck(this, ErrorMessage);
+
+	    return _possibleConstructorReturn(this, (ErrorMessage.__proto__ || Object.getPrototypeOf(ErrorMessage)).apply(this, arguments));
+	  }
+
+	  _createClass(ErrorMessage, [{
+	    key: "render",
+	    value: function render() {
+	      var errorMessage = void 0;
+	      var userNumber = this.props.userGuess;
+	      var randomNumber = this.props.randomNumber;
+	      if (userNumber !== null) {
+	        userNumber = parseInt(userNumber);
+	        if (randomNumber === userNumber) {
+	          errorMessage = "Yeaaaaahhhhhh boiiiiiiii!!!!!!!";
+	        } else if (userNumber < 0 || userNumber > 100) {
+	          errorMessage = "There are boundaries and limitations here. Please obey them.";
+	        } else if (randomNumber > userNumber) {
+	          errorMessage = "Too low, SON!";
+	        } else if (randomNumber < userNumber) {
+	          errorMessage = "Too damn high!!";
+	        } else if (Number.isNaN(userNumber)) {
+	          errorMessage = "Numbers, WHAT ARE THEY?!";
+	        } else if (userNumber === null) {
+	          errorMessage = '';
+	        }
+	      }
+
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        errorMessage
+	      );
+	    }
+	  }]);
+
+	  return ErrorMessage;
+	}(_react2.default.Component);
+
+	module.exports = ErrorMessage;
+
+/***/ },
+/* 471 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(299);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Buttons = function (_React$Component) {
+	  _inherits(Buttons, _React$Component);
+
+	  function Buttons() {
+	    _classCallCheck(this, Buttons);
+
+	    return _possibleConstructorReturn(this, (Buttons.__proto__ || Object.getPrototypeOf(Buttons)).apply(this, arguments));
+	  }
+
+	  _createClass(Buttons, [{
+	    key: 'render',
+	    value: function render() {
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'button',
+	          { id: 'submitButton', onClick: this.props.setUserGuess },
+	          ' Submit'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { id: 'clearButton', onClick: this.props.clearInput },
+	          'Clear'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { id: 'resetButton', onClick: this.props.resetGame },
+	          'Reset'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Buttons;
+	}(_react2.default.Component);
+
+	module.exports = Buttons;
 
 /***/ }
 /******/ ]);
