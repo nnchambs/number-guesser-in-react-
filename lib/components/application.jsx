@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ErrorMessage from './ErrorMessage';
+import Buttons from './Buttons'
 
 export default class Application extends Component {
   constructor() {
@@ -47,22 +48,17 @@ export default class Application extends Component {
       submitButton.disabled = true;
       clearButton.disabled = true;
     }
-
-
   }
-
 
   render() {
 
     return(
       <div>
         <input  id="numberInput" placeholder="Guess a number" min='1' max='100' onLoad={this.toggleDisable} onChange={this.toggleDisable}></input>
-        <button id="submitButton" onClick={this.setUserGuess}> Submit</button>
         <div className="numberDisplay">{ this.state.userNumber }</div>
         <div id="messageDisplay"></div>
         <ErrorMessage userGuess={this.state.userNumber} randomNumber={this.state.randomNumber} />
-        <button id='clearButton' onClick={this.clearInput}>Clear</button>
-        <button id="resetButton" onClick={this.resetGame}>Reset</button>
+        <Buttons clearInput={this.clearInput} resetGame={this.resetGame} setUserGuess={this.setUserGuess} />
       </div>
     )
   }
