@@ -18,7 +18,7 @@ export default class Application extends Component {
     let randomNumber = (Math.floor(Math.random() * 100) + 1);
     return randomNumber;
   }
-  setUserGuess() {
+  setUserGuess(e) {
     let userGuess = document.getElementById('numberInput').value;
     this.setState({ userNumber: userGuess });
   }
@@ -60,7 +60,7 @@ export default class Application extends Component {
         <button id="submitButton" onClick={this.setUserGuess}> Submit</button>
         <div className="numberDisplay">{ this.state.userNumber }</div>
         <div id="messageDisplay"></div>
-        <ErrorMessage userGuess={this.state.UserNumber} randomNumber={this.state.randomNumber} />
+        <ErrorMessage userGuess={this.state.userNumber} randomNumber={this.state.randomNumber} />
         <button id='clearButton' onClick={this.clearInput}>Clear</button>
         <button id="resetButton" onClick={this.resetGame}>Reset</button>
       </div>

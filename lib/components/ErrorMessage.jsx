@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
 class ErrorMessage extends React.Component {
+  componentWillReceiveProps(newProps){
 
+  }
   render() {
       let errorMessage;
-      let userNumber = parseInt(this.props.userGuess);
+      let userNumber = this.props.userGuess;
       let randomNumber = this.props.randomNumber;
       if (userNumber !== "") {
         if (userNumber !== "" && randomNumber === userNumber) {
@@ -17,10 +19,11 @@ class ErrorMessage extends React.Component {
           errorMessage = "Numbers, WHAT ARE THEY?!";
         } else if (userNumber === null) {
           errorMessage = '';
-        } else {
-          errorMessage = '';
         }
+      } else {
+        errorMessage = '';
       }
+
     return(
       <div>{errorMessage}</div>
     )
