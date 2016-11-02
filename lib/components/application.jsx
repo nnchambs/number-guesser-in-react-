@@ -5,7 +5,6 @@ import Buttons from './Buttons'
 export default class Application extends Component {
   constructor() {
     super();
-    this.randomNumberGenerator = this.randomNumberGenerator.bind(this);
     this.setUserGuess = this.setUserGuess.bind(this);
     this.resetGame = this.resetGame.bind(this);
     this.state = {
@@ -14,14 +13,13 @@ export default class Application extends Component {
     };
   }
   componentDidMount() {
-    this.toggleDisable();
   }
   randomNumberGenerator() {
     let randomNumber = (Math.floor(Math.random() * 100) + 1);
     return randomNumber;
   }
   setUserGuess(e) {
-    let userGuess = document.getElementById('numberInput').value;
+    let userGuess = e.target.value
     this.setState({ userNumber: userGuess });
   }
 
@@ -38,31 +36,15 @@ export default class Application extends Component {
     input.value = "";
   }
 
-  toggleDisable() {
-    let submitButton = document.getElementById('submitButton');
-    let input = document.getElementById('numberInput');
-    let clearButton = document.getElementById('clearButton');
-    let resetButton = document.getElementById('resetButton');
-    if (input.value) {
-      submitButton.disabled = false;
-      clearButton.disabled = false;
-      resetButton.disabled = false
-    } else {
-      submitButton.disabled = true;
-      clearButton.disabled = true;
-      resetButton.disabled = true;
-    }
-  }
-
   render() {
 
     return(
       <div>
-        <input  id="numberInput" placeholder="Guess a number" min='1' max='100' onLoad={this.toggleDisable} onKeyUp={this.toggleDisable}></input>
+        <input  id="numberInput" placeholder="Guess a number" min='1' max='100' onLoad={this.toggleDisable} onChange={(e) => this.setUserGuess(e)}></input>
         <div className="numberDisplay">{ this.state.userNumber }</div>
         <div id="messageDisplay"></div>
         <ErrorMessage userGuess={this.state.userNumber} randomNumber={this.state.randomNumber} />
-        <Buttons clearInput={this.clearInput} resetGame={this.resetGame} setUserGuess={this.setUserGuess} />
+        <Buttons clearInput={this.clearInput} input={this.state.userNumber} resetGame={this.resetGame} setUserGuess={this.setUserGuess} />
       </div>
     )
   }
