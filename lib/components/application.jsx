@@ -14,6 +14,7 @@ export default class Application extends Component {
     };
   }
   componentDidMount() {
+    this.toggleDisable();
   }
   randomNumberGenerator() {
     let randomNumber = (Math.floor(Math.random() * 100) + 1);
@@ -55,7 +56,7 @@ export default class Application extends Component {
 
     return(
       <div>
-        <input  id="numberInput" placeholder="Guess a number" min='1' max='100' onLoad={this.toggleDisable} onChange={this.toggleDisable}></input>
+        <input  id="numberInput" placeholder="Guess a number" min='1' max='100' onLoad={this.toggleDisable} onKeyUp={this.toggleDisable}></input>
         <div className="numberDisplay">{ this.state.userNumber }</div>
         <div id="messageDisplay"></div>
         <ErrorMessage userGuess={this.state.userNumber} randomNumber={this.state.randomNumber} />
