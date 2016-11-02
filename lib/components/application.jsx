@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ErrorMessage from './ErrorMessage';
 
 export default class Application extends Component {
   constructor() {
@@ -53,27 +54,6 @@ export default class Application extends Component {
 
 
   render() {
-    let errorMessage;
-    let userNumber = parseInt(this.state.userNumber);
-    if (userNumber !== "") {
-      if (userNumber !== "" && this.state.randomNumber === userNumber) {
-        errorMessage = "Yeaaaaahhhhhh boiiiiiiii!!!!!!!";
-      } else if (this.state.randomNumber > userNumber) {
-        errorMessage = "Too low, SON!";
-      } else if (this.state.randomNumber < userNumber) {
-        errorMessage = "Too damn high!!";
-      } else if (userNumber = null) {
-        errorMessage = ''
-      }
-      else if (Number.isNaN(userNumber)) {
-        errorMessage = "Numbers, WHAT ARE THEY?!";
-      } else {
-        errorMessage = '';
-      }
-    }
-
-
-
 
     return(
       <div>
@@ -81,7 +61,7 @@ export default class Application extends Component {
         <button id="submitButton" onClick={this.setUserGuess}> Submit</button>
         <div className="numberDisplay">{ this.state.userNumber }</div>
         <div id="messageDisplay"></div>
-        <div>{ errorMessage }</div>
+        <ErrorMessage userGuess={this.state.UserNumber} randomNumber={this.state.randomNumber} />
         <button id='clearButton' onClick={this.clearInput}>Clear</button>
         <button id="resetButton" onClick={this.resetGame}>Reset</button>
       </div>
