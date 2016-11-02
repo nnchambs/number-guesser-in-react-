@@ -9,15 +9,14 @@ export default class Application extends Component {
     this.resetGame = this.resetGame.bind(this);
     this.state = {
       userNumber: null,
-      randomNumber: null
+      randomNumber: this.randomNumberGenerator()
     };
   }
   componentDidMount() {
-    this.randomNumberGenerator();
   }
   randomNumberGenerator() {
     let randomNumber = (Math.floor(Math.random() * 100) + 1);
-    this.setState({ randomNumber: randomNumber });
+    return randomNumber;
   }
   setUserGuess() {
     let userGuess = document.getElementById('numberInput').value;
