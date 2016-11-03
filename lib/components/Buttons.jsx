@@ -2,35 +2,13 @@ import React, { Component } from 'react';
 
 class Buttons extends React.Component {
 
-  // componentDidMount() {
-  //   toggleDisable()
-  // }
-
-  // toggleDisable() {
-  //   if (this.props.input) {
-  //     submitButton.disabled = false;
-  //     clearButton.disabled = false;
-  //     resetButton.disabled = false;
-  //   } else {
-  //     submitButton.disabled = true;
-  //     clearButton.disabled = true;
-  //     resetButton.disabled = true;
-  //   }
-  // }
-
-
-
   render() {
-
-    let submitButton = (<button id="submitButton"  onClick={this.props.setUserGuess}> Submit</button>);
-    let clearButton = (<button id='clearButton'  onClick={this.props.clearInput}>Clear</button>);
-    let resetButton = (<button id="resetButton"  onClick={this.props.resetGame}>Reset</button>);
 
     return(
       <div>
-        {submitButton}
-        {clearButton}
-        {resetButton}
+      <button id="submitButton"  onClick={this.props.setUserGuess} disabled={!this.props.input}>Submit</button>
+      <button id="clearButton"onClick={this.props.clearInput} disabled={!this.props.input}>Clear</button>
+      <button id="resetButton" onClick={this.props.resetGame} disabled={!this.props.input}>Reset</button>
       </div>
     )
   }
